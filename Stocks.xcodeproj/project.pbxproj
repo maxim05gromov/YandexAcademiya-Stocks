@@ -19,6 +19,7 @@
 		B551ED3625F3A600008BA561 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B551ED3525F3A600008BA561 /* Cell.xib */; };
 		B551ED3925F3A659008BA561 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B551ED3825F3A659008BA561 /* Cell.swift */; };
 		B562642925F37DB6007D0C90 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B562642825F37DB6007D0C90 /* Stock.swift */; };
+		B5BF6B2825F4129D0036156E /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BF6B2725F4129D0036156E /* InfoVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		B551ED3525F3A600008BA561 /* Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
 		B551ED3825F3A659008BA561 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		B562642825F37DB6007D0C90 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
+		B5BF6B2725F4129D0036156E /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = SOURCE_ROOT; };
 		CF1C6C665BF5740352757E63 /* Pods_Stocks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stocks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65B717CBC8A3F743F8EDA27 /* Pods-Stocks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stocks.debug.xcconfig"; path = "Target Support Files/Pods-Stocks/Pods-Stocks.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 		B5162C0125F29DD500BD0223 /* Stocks */ = {
 			isa = PBXGroup;
 			children = (
+				B5BF6B2725F4129D0036156E /* InfoVC.swift */,
 				B5162C0225F29DD500BD0223 /* AppDelegate.swift */,
 				B5162C0425F29DD500BD0223 /* SceneDelegate.swift */,
 				B5162C1C25F2A25A00BD0223 /* FavouritesVC.swift */,
@@ -233,6 +236,7 @@
 				B5162C1D25F2A25A00BD0223 /* FavouritesVC.swift in Sources */,
 				B562642925F37DB6007D0C90 /* Stock.swift in Sources */,
 				B5162C0325F29DD500BD0223 /* AppDelegate.swift in Sources */,
+				B5BF6B2825F4129D0036156E /* InfoVC.swift in Sources */,
 				B551ED3925F3A659008BA561 /* Cell.swift in Sources */,
 				B5162C1B25F2A1C300BD0223 /* StocksVC.swift in Sources */,
 				B5162C0525F29DD500BD0223 /* SceneDelegate.swift in Sources */,
