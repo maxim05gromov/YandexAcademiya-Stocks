@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="br8-aK-Y8C">
-                        <rect key="frame" x="82" y="14" width="187" height="34"/>
+                        <rect key="frame" x="82" y="14" width="138" height="34"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                         <nil key="textColor"/>
@@ -57,7 +57,7 @@
                 <outlet property="StockName" destination="7bR-xb-TTI" id="mIc-Jc-DAr"/>
                 <outlet property="StockSymbol" destination="br8-aK-Y8C" id="kdN-6t-Plt"/>
             </connections>
-            <point key="canvasLocation" x="-78.400000000000006" y="100.29985007496252"/>
+            <point key="canvasLocation" x="-243.19999999999999" y="111.99400299850076"/>
         </tableViewCell>
     </objects>
 </document>

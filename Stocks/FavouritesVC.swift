@@ -7,8 +7,154 @@
 
 import UIKit
 class FavouritesViewController: UITableViewController{
+    
+    
+    var dataLoaded = false
+    private var Stocks = [stocks]()
+    private var StocksShow = [stocks]()
+    let defaults = UserDefaults.standard
+    let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
+    let x = UIScreen.main.bounds.width / 2
+    let y = UIScreen.main.bounds.height / 4
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        tableView.tableFooterView?.isHidden = true
+        super.viewDidLoad()
+        let nib = UINib(nibName: "Cell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "cellid")
+        label.center = CGPoint(x: x, y: y)
+        label.text = "You don't have any favourite stocks. Add them by swiping to the left"
+        label.numberOfLines = 3
+        label.textAlignment = .center
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getData()
+    }
+    
+    
+    func getData(){
+        let symbols = defaults.array(forKey: "favourite")
+        StocksShow = []
+        if symbols == nil || symbols?.count == 0{
+            view.addSubview(label)
+            label.isHidden = false
+        }else{
+            label.isHidden = true
+            if !self.dataLoaded{
+                let url = URL(string: "http://www.mboum.com/api/v1/qu/quote/?symbol=YNDX,AAPL,MSFT,AMZN,GOOG,FB,VOD,INTC,PEP,ADBE,CSCO,NVDA,NFLX,TSLA,SBUX,QCOM,TMUS,BKNG,AMD,ADSK,EA,EBAY&apikey=pP6wJSVkgnyK89qvY6RDnrb1NCc0vOL3p1wZjs226KeBAomLDLdYsHoW4UH9")!
+                URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    guard let data = data else{ return }
+                    do{
+                        self.Stocks = try JSONDecoder().decode([stocks].self, from: data)
+                    }catch let error{
+                        print(error)
+                    }
+                    DispatchQueue.main.async {
+                        self.dataLoaded = true
+                        for i in symbols!{
+                            for j in self.Stocks{
+                                if j.symbol == i as? String{
+                                    self.StocksShow.append(j)
+                                    break
+                                }
+                            }
+                        }
+                        self.tableView.reloadData()
+                    }
+                }.resume()
+                
+            }else{
+                for i in symbols!{
+                    for j in Stocks{
+                        if j.symbol == i as? String{
+                            StocksShow.append(j)
+                            break
+                        }
+                    }
+                }
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let stock = StocksShow[indexPath.row]
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
+            var array = self.defaults.array(forKey: "favourite")
+            array = array!.filter { $0 as? String != stock.symbol }
+            self.defaults.set(array, forKey: "favourite")
+            self.getData()
+            if array?.count == 0{
+                self.tableView.reloadData()
+                self.label.isHidden = false
+            }
+            complete(true)
+        }
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 85
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if dataLoaded{
+            return StocksShow.count
+        }else{
+            return 0
+        }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellid", for: indexPath) as! Cell
+        if dataLoaded{
+            cell.StockName.text = StocksShow[indexPath.row].longName
+            cell.StockSymbol.text = StocksShow[indexPath.row].symbol
+            var cost = ""
+            if StocksShow[indexPath.row].financialCurrency == "USD"{
+                cost += "$"
+                cost += "\(StocksShow[indexPath.row].regularMarketPrice!)"
+            }else if StocksShow[indexPath.row].financialCurrency == "RUB"{
+                cost += "\(StocksShow[indexPath.row].regularMarketPrice!)"
+                cost += " ₽"
+            }else if StocksShow[indexPath.row].financialCurrency == "EUR"{
+                cost += "\(StocksShow[indexPath.row].regularMarketPrice!)"
+                cost += " €"
+            }
+            cell.StockCost.text = cost
+            if StocksShow[indexPath.row].regularMarketChange ?? 0 >= 0{
+                cost = "+"
+                cell.StockChange.textColor = #colorLiteral(red: 0.454715784, green: 0.832876933, blue: 0.219663645, alpha: 1)
+            }else{
+                cost = ""
+                cell.StockChange.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            }
+            var change: Double
+            change = Double(StocksShow[indexPath.row].regularMarketChange ?? 0)
+            change = round(1000.0 * change) / 1000.0
+            cell.StockChange.text = "\(cost)\(change)"
+        }
+        return cell
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let destinationVC = infoVC()
+        destinationVC.showStock.removeAll()
+        destinationVC.showStock.append(StocksShow[indexPath.row])
+        destinationVC.navigationItem.title = destinationVC.showStock[0].longName
+        self.navigationController!.pushViewController(destinationVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

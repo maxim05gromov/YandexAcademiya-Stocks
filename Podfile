@@ -6,5 +6,5 @@ target 'Stocks' do
   use_frameworks!
 
   # Pods for Stocks
-pod 'Alamofire'
+
 end
