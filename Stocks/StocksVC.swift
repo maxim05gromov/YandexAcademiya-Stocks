@@ -114,9 +114,40 @@ class StocksViewController: UITableViewController {
             if showSearch{
                 cell.StockName.text = check[indexPath.row].longName
                 cell.StockSymbol.text = check[indexPath.row].symbol
+                cell.StockImage.image = UIImage(named: check[indexPath.row].symbol!)
+                cell.StockImage.clipsToBounds = true
+                cell.StockImage.contentMode = .scaleAspectFit
+                cell.StockImage.layer.cornerRadius = 15
+                var cost = ""
+                if check[indexPath.row].financialCurrency == "USD"{
+                    cost += "$"
+                    cost += "\(check[indexPath.row].regularMarketPrice!)"
+                }else if check[indexPath.row].financialCurrency == "RUB"{
+                    cost += "\(check[indexPath.row].regularMarketPrice!)"
+                    cost += " ₽"
+                }else if check[indexPath.row].financialCurrency == "EUR"{
+                    cost += "\(check[indexPath.row].regularMarketPrice!)"
+                    cost += " €"
+                }
+                cell.StockCost.text = cost
+                if check[indexPath.row].regularMarketChange ?? 0 >= 0{
+                    cost = "+"
+                    cell.StockChange.textColor = #colorLiteral(red: 0.454715784, green: 0.832876933, blue: 0.219663645, alpha: 1)
+                }else{
+                    cost = ""
+                    cell.StockChange.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                }
+                var change: Double
+                change = Double(check[indexPath.row].regularMarketChange ?? 0)
+                change = round(1000.0 * change) / 1000.0
+                cell.StockChange.text = "\(cost)\(change)"
             }else{
                 cell.StockName.text = Stocks[indexPath.row].longName
                 cell.StockSymbol.text = Stocks[indexPath.row].symbol
+                cell.StockImage.image = UIImage(named: Stocks[indexPath.row].symbol!)
+                cell.StockImage.clipsToBounds = true
+                cell.StockImage.contentMode = .scaleAspectFit
+                cell.StockImage.layer.cornerRadius = 15
                 var cost = ""
                 if Stocks[indexPath.row].financialCurrency == "USD"{
                     cost += "$"
