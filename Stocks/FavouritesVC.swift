@@ -51,6 +51,7 @@ class FavouritesViewController: UITableViewController{
         if symbols == nil || symbols?.count == 0{
             view.addSubview(label)
             label.isHidden = false
+            activityIndicator.stopAnimating()
         }else{
             label.isHidden = true
             if self.dataLoaded{

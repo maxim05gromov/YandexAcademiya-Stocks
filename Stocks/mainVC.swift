@@ -10,18 +10,24 @@ class mainViewController: UITabBarController{
     override func viewDidLoad() {
         let defaults = UserDefaults.standard
         super.viewDidLoad()
+        
+        
         let stocksVC1 = StocksViewController()
         let stocksVC = UINavigationController(rootViewController: stocksVC1)
         stocksVC.tabBarItem.image = #imageLiteral(resourceName: "bar_chart")
         stocksVC.tabBarItem.title = "Stocks"
         stocksVC1.navigationItem.title = "Stocks"
         stocksVC.navigationBar.prefersLargeTitles = true
+        
+        
         let favouritesVC1 = FavouritesViewController()
         let favouritesVC = UINavigationController(rootViewController: favouritesVC1)
         favouritesVC.tabBarItem.image = #imageLiteral(resourceName: "star")
         favouritesVC.tabBarItem.title = "Favourites"
         favouritesVC1.navigationItem.title = "Favourites"
         favouritesVC.navigationBar.prefersLargeTitles = true
+        
+        
         let url = URL(string: "http://www.mboum.com/api/v1/qu/quote/?symbol=YNDX,AAPL,MSFT,AMZN,GOOG,FB,VOD,INTC,PEP,ADBE,CSCO,NVDA,NFLX,TSLA,SBUX,QCOM,TMUS,BKNG,AMD,ADSK,EA,EBAY&apikey=pP6wJSVkgnyK89qvY6RDnrb1NCc0vOL3p1wZjs226KeBAomLDLdYsHoW4UH9")!
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else{ return }
@@ -47,6 +53,8 @@ class mainViewController: UITabBarController{
                 }
             }
         }.resume()
+        
+        
         tabBar.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         viewControllers = [
             stocksVC,

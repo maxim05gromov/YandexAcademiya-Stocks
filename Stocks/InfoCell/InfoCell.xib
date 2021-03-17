@@ -16,9 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="win-sF-YNc">
-                        <rect key="frame" x="12" y="12" width="233" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="win-sF-YNc">
+                        <rect key="frame" x="12" y="12" width="390" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -31,6 +30,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="win-sF-YNc" secondAttribute="trailing" constant="12" id="3J4-do-zdV"/>
+                    <constraint firstItem="win-sF-YNc" firstAttribute="leading" secondItem="hSS-ck-F2m" secondAttribute="leading" constant="12" id="A2v-Iz-PDJ"/>
+                    <constraint firstItem="win-sF-YNc" firstAttribute="top" secondItem="hSS-ck-F2m" secondAttribute="top" constant="12" id="Xws-3n-jgF"/>
+                    <constraint firstAttribute="bottom" secondItem="win-sF-YNc" secondAttribute="bottom" constant="11" id="dc9-ar-ey1"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="Data" destination="41c-ve-SFz" id="zst-Z2-ysX"/>

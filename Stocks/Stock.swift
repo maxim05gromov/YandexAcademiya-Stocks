@@ -6,7 +6,18 @@
 //
 
 import Foundation
-
+struct newsModel: Decodable{
+        var description: String
+        var guid: String
+        var link: String
+        var pubDate: String
+        var title: String
+}
+struct news: Decodable{
+    var item: [newsModel]
+    var language: String
+    var lastBuildDate: String
+}
 struct stocks: Decodable{
     var ask: Float?
     var askSize: Int?

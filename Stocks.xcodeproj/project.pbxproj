@@ -71,19 +71,19 @@
 		B5162C0125F29DD500BD0223 /* Stocks */ = {
 			isa = PBXGroup;
 			children = (
-				B59F96D825FE65E900CD5A8C /* InfoVC.swift */,
+				B5162C1E25F2ABB400BD0223 /* Сообщение для проверяющего */,
+				B5162C0B25F29DDA00BD0223 /* Assets.xcassets */,
+				B5162C1025F29DDA00BD0223 /* Info.plist */,
+				B5162C0D25F29DDA00BD0223 /* LaunchScreen.storyboard */,
+				B562642825F37DB6007D0C90 /* Stock.swift */,
+				B551ED3725F3A63B008BA561 /* Cell */,
 				B5E7BA6D25F50F7800611BFD /* InfoCell */,
 				B5162C0225F29DD500BD0223 /* AppDelegate.swift */,
 				B5162C0425F29DD500BD0223 /* SceneDelegate.swift */,
-				B5162C1C25F2A25A00BD0223 /* FavouritesVC.swift */,
-				B5162C0B25F29DDA00BD0223 /* Assets.xcassets */,
-				B5162C0D25F29DDA00BD0223 /* LaunchScreen.storyboard */,
-				B5162C1025F29DDA00BD0223 /* Info.plist */,
 				B5162C1825F29E8A00BD0223 /* mainVC.swift */,
 				B5162C1A25F2A1C300BD0223 /* StocksVC.swift */,
-				B551ED3725F3A63B008BA561 /* Cell */,
-				B562642825F37DB6007D0C90 /* Stock.swift */,
-				B5162C1E25F2ABB400BD0223 /* Сообщение для проверяющего */,
+				B5162C1C25F2A25A00BD0223 /* FavouritesVC.swift */,
+				B59F96D825FE65E900CD5A8C /* InfoVC.swift */,
 			);
 			path = Stocks;
 			sourceTree = "<group>";
