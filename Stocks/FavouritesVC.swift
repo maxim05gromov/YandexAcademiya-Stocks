@@ -10,12 +10,13 @@ class FavouritesViewController: UITableViewController{
     
     
     var dataLoaded = false
-    private var Stocks = [stocks]()
-    private var StocksShow = [stocks]()
+    var Stocks = [stocks]()
+    var StocksShow = [stocks]()
     let defaults = UserDefaults.standard
     let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
     let x = UIScreen.main.bounds.width / 2
     let y = UIScreen.main.bounds.height / 4
+    var activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
     
     
     override func viewDidLoad() {
@@ -29,6 +30,13 @@ class FavouritesViewController: UITableViewController{
         label.text = "You don't have any favourite stocks. Add them by swiping to the left"
         label.numberOfLines = 3
         label.textAlignment = .center
+        let x = UIScreen.main.bounds.width / 2
+        let y = UIScreen.main.bounds.height / 4
+        activityIndicator.center = CGPoint(x: x, y: y)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+
     }
     
     
@@ -45,30 +53,7 @@ class FavouritesViewController: UITableViewController{
             label.isHidden = false
         }else{
             label.isHidden = true
-            if !self.dataLoaded{
-                let url = URL(string: "http://www.mboum.com/api/v1/qu/quote/?symbol=YNDX,AAPL,MSFT,AMZN,GOOG,FB,VOD,INTC,PEP,ADBE,CSCO,NVDA,NFLX,TSLA,SBUX,QCOM,TMUS,BKNG,AMD,ADSK,EA,EBAY&apikey=pP6wJSVkgnyK89qvY6RDnrb1NCc0vOL3p1wZjs226KeBAomLDLdYsHoW4UH9")!
-                URLSession.shared.dataTask(with: url) { (data, response, error) in
-                    guard let data = data else{ return }
-                    do{
-                        self.Stocks = try JSONDecoder().decode([stocks].self, from: data)
-                    }catch let error{
-                        print(error)
-                    }
-                    DispatchQueue.main.async {
-                        self.dataLoaded = true
-                        for i in symbols!{
-                            for j in self.Stocks{
-                                if j.symbol == i as? String{
-                                    self.StocksShow.append(j)
-                                    break
-                                }
-                            }
-                        }
-                        self.tableView.reloadData()
-                    }
-                }.resume()
-                
-            }else{
+            if self.dataLoaded{
                 for i in symbols!{
                     for j in Stocks{
                         if j.symbol == i as? String{
@@ -78,6 +63,7 @@ class FavouritesViewController: UITableViewController{
                     }
                 }
                 tableView.reloadData()
+                activityIndicator.stopAnimating()
             }
         }
     }
@@ -121,6 +107,10 @@ class FavouritesViewController: UITableViewController{
         if dataLoaded{
             cell.StockName.text = StocksShow[indexPath.row].longName
             cell.StockSymbol.text = StocksShow[indexPath.row].symbol
+            cell.StockImage.image = UIImage(named: StocksShow[indexPath.row].symbol!)
+            cell.StockImage.clipsToBounds = true
+            cell.StockImage.contentMode = .scaleAspectFit
+            cell.StockImage.layer.cornerRadius = 15
             var cost = ""
             if StocksShow[indexPath.row].financialCurrency == "USD"{
                 cost += "$"

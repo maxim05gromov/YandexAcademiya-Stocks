@@ -10,8 +10,8 @@ class StocksViewController: UITableViewController {
     let searchController = UISearchController(searchResultsController: nil)
     var dataLoaded = false
     var showSearch = false
-    private var Stocks = [stocks]()
-    private var check = [stocks]()
+    var Stocks = [stocks]()
+    var check = [stocks]()
     var activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
     let defaults = UserDefaults.standard
     
@@ -25,7 +25,6 @@ class StocksViewController: UITableViewController {
         let nib = UINib(nibName: "Cell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "cellid")
         setupSearchBar()
-        dataLoaded = false
         showSearch = false
         let x = UIScreen.main.bounds.width / 2
         let y = UIScreen.main.bounds.height / 4
@@ -33,27 +32,13 @@ class StocksViewController: UITableViewController {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
-        loadData()
     }
     
     
-    
-    func loadData(){
-        let url = URL(string: "http://www.mboum.com/api/v1/qu/quote/?symbol=YNDX,AAPL,MSFT,AMZN,GOOG,FB,VOD,INTC,PEP,ADBE,CSCO,NVDA,NFLX,TSLA,SBUX,QCOM,TMUS,BKNG,AMD,ADSK,EA,EBAY&apikey=pP6wJSVkgnyK89qvY6RDnrb1NCc0vOL3p1wZjs226KeBAomLDLdYsHoW4UH9")!
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else{ return }
-            do{
-                self.Stocks = try JSONDecoder().decode([stocks].self, from: data)
-            }catch let error{
-                print(error)
-            }
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.dataLoaded = true
-                self.tableView.isHidden = false
-                self.tableView.reloadData()
-            }
-        }.resume()
+    func parse(){
+        activityIndicator.stopAnimating()
+        tableView.isHidden = false
+        tableView.reloadData()
     }
     
     
