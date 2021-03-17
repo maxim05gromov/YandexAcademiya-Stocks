@@ -174,7 +174,16 @@ class infoVC: UITableViewController{
         return cell
     }
     
-    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection
+                                section: Int) -> String? {
+        if section == 0{
+            return "Statistics"
+        }else if section == 1{
+            return "News"
+        }else{
+            return ""
+        }
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 1 && newsLoaded{
