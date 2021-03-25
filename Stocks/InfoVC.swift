@@ -51,22 +51,20 @@ class infoVC: UITableViewController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1{
-        return 8
-        }else if section == 2{
             return 3
         }else{
-            return 1
+            return 8
         }
     }
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1{
+        if indexPath.section == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
         switch (indexPath.row){
         case 0:
@@ -166,7 +164,7 @@ class infoVC: UITableViewController{
             break
         }
             return cell
-        }else if indexPath.section == 2{
+        }else if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
             if !newsLoaded{
                 cell.Name.text = "Loading news..."
@@ -176,11 +174,6 @@ class infoVC: UITableViewController{
                 cell.Data.text = ""
             }
             return cell
-        }else if indexPath.section == 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
-            cell.Name.text = "Open the chart"
-            cell.Data.text = ""
-            return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
             return cell
@@ -189,9 +182,9 @@ class infoVC: UITableViewController{
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
                                 section: Int) -> String? {
-        if section == 1{
+        if section == 0{
             return "Statistics"
-        }else if section == 2{
+        }else if section == 1{
             return "News"
         }else{
             return ""
@@ -199,14 +192,9 @@ class infoVC: UITableViewController{
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 2 && newsLoaded{
+        if indexPath.section == 1 && newsLoaded{
             let svc = SFSafariViewController(url: URL(string: showNews[indexPath.row].link)!)
             present(svc, animated: true, completion: nil)
-        }else if indexPath.section == 0{
-            let destinationVC = chartVC()
-            destinationVC.navigationItem.title = "Chart"
-            self.navigationController!.pushViewController(destinationVC, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 }

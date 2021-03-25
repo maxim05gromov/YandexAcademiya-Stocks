@@ -111,3 +111,4 @@ struct stocks: Decodable{
     var twoHundredDayAverageChange: Float?
     var twoHundredDayAverageChangePercent: Float?
 }
+
