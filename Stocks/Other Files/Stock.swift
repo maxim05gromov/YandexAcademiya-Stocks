@@ -4,6 +4,8 @@
 //
 //  Created by Максим on Float.2021.
 //
+//  Модели данных, подгружаемых из API
+let apiKeys = ["PKIknRGWIZ0MnJas4F2l7Eln5GkRYl8FxM9XmeiR5jidIZJ2hme2j6KuvuCr", "6c00CHQNdNIhqbUXxNUjLvAy2wJohWgihQmm2KYumhOOcDnp3jFLNcIcVO2W"]
 
 import Foundation
 struct newsModel: Decodable{

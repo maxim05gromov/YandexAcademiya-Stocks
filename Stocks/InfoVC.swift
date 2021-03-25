@@ -4,7 +4,7 @@
 //
 //  Created by Максим on 06.03.2021.
 //
-
+//  Этот ViewController отображает информацию о конкретной акции
 import UIKit
 import SafariServices
 class infoVC: UITableViewController{
@@ -24,7 +24,7 @@ class infoVC: UITableViewController{
     
     
     override func viewDidAppear(_ animated: Bool) {
-        let url = URL(string: "https://mboum.com/api/v1/ne/news/?symbol=\(showStock[0].symbol!)&apikey=pP6wJSVkgnyK89qvY6RDnrb1NCc0vOL3p1wZjs226KeBAomLDLdYsHoW4UH9")!
+        let url = URL(string: "https://mboum.com/api/v1/ne/news/?symbol=\(showStock[0].symbol!)&apikey=\(apiKey)")!
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else{ return }
             do{
@@ -45,26 +45,29 @@ class infoVC: UITableViewController{
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+            return 44
     }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
+        if section == 1{
         return 8
-        }else{
+        }else if section == 2{
             return 3
+        }else{
+            return 1
         }
     }
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
-        if indexPath.section == 0{
+        if indexPath.section == 1{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
         switch (indexPath.row){
         case 0:
             cell.Name.text = "Open"
@@ -162,7 +165,9 @@ class infoVC: UITableViewController{
             print("error!")
             break
         }
-        }else if indexPath.section == 1{
+            return cell
+        }else if indexPath.section == 2{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
             if !newsLoaded{
                 cell.Name.text = "Loading news..."
                 cell.Data.text = ""
@@ -170,15 +175,23 @@ class infoVC: UITableViewController{
                 cell.Name.text = showNews[indexPath.row].title
                 cell.Data.text = ""
             }
+            return cell
+        }else if indexPath.section == 0{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
+            cell.Name.text = "Open the chart"
+            cell.Data.text = ""
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellid1", for: indexPath) as! infoCell
+            return cell
         }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
                                 section: Int) -> String? {
-        if section == 0{
+        if section == 1{
             return "Statistics"
-        }else if section == 1{
+        }else if section == 2{
             return "News"
         }else{
             return ""
@@ -186,9 +199,14 @@ class infoVC: UITableViewController{
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 1 && newsLoaded{
+        if indexPath.section == 2 && newsLoaded{
             let svc = SFSafariViewController(url: URL(string: showNews[indexPath.row].link)!)
             present(svc, animated: true, completion: nil)
+        }else if indexPath.section == 0{
+            let destinationVC = chartVC()
+            destinationVC.navigationItem.title = "Chart"
+            self.navigationController!.pushViewController(destinationVC, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 }

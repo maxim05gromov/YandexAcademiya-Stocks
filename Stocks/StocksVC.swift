@@ -4,6 +4,7 @@
 //
 //  Created by Максим on 05.03.2021.
 //
+//  ViewController, отображающий список акций
 import Foundation
 import UIKit
 class StocksViewController: UITableViewController {
@@ -24,7 +25,8 @@ class StocksViewController: UITableViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "Cell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "cellid")
-        setupSearchBar()
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
         showSearch = false
         let x = UIScreen.main.bounds.width / 2
         let y = UIScreen.main.bounds.height / 4
@@ -40,16 +42,10 @@ class StocksViewController: UITableViewController {
         tableView.isHidden = false
         tableView.reloadData()
     }
-    
+    //  Функция Parse нужна для отображения данных в таблице после загрузки в MainVC. Так как данные не подгружаются моментально, сперва на этом VC отображается Activity Indicator
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
-    }
-    
-    
-    private func setupSearchBar(){
-        navigationItem.searchController = searchController
-        searchController.searchBar.delegate = self
     }
     
     

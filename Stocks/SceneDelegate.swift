@@ -4,7 +4,7 @@
 //
 //  Created by Максим on 05.03.2021.
 //
-
+//  SceneDelegate настроен для отображения экранов не из Storyboard, а из Swift файлов
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

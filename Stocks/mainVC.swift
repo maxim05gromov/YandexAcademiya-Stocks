@@ -4,13 +4,13 @@
 //
 //  Created by Максим on 05.03.2021.
 //
-
+//  Этот файл нужен для создания TabBar, Stocks View Controller и Faforites View Controller. Также в этом файле происходит загрузка данных из API.
 import UIKit
+var apiKey = "6c00CHQNdNIhqbUXxNUjLvAy2wJohWgihQmm2KYumhOOcDnp3jFLNcIcVO2W"
 class mainViewController: UITabBarController{
     override func viewDidLoad() {
         let defaults = UserDefaults.standard
         super.viewDidLoad()
-        
         
         let stocksVC1 = StocksViewController()
         let stocksVC = UINavigationController(rootViewController: stocksVC1)
@@ -19,7 +19,7 @@ class mainViewController: UITabBarController{
         stocksVC1.navigationItem.title = "Stocks"
         stocksVC.navigationBar.prefersLargeTitles = true
         
-        
+
         let favouritesVC1 = FavouritesViewController()
         let favouritesVC = UINavigationController(rootViewController: favouritesVC1)
         favouritesVC.tabBarItem.image = #imageLiteral(resourceName: "star")
@@ -28,7 +28,7 @@ class mainViewController: UITabBarController{
         favouritesVC.navigationBar.prefersLargeTitles = true
         
         
-        let url = URL(string: "http://www.mboum.com/api/v1/qu/quote/?symbol=YNDX,AAPL,MSFT,AMZN,GOOG,FB,VOD,INTC,PEP,ADBE,CSCO,NVDA,NFLX,TSLA,SBUX,QCOM,TMUS,BKNG,AMD,ADSK,EA,EBAY&apikey=pP6wJSVkgnyK89qvY6RDnrb1NCc0vOL3p1wZjs226KeBAomLDLdYsHoW4UH9")!
+        let url = URL(string: "http://www.mboum.com/api/v1/qu/quote/?symbol=YNDX,AAPL,MSFT,AMZN,GOOG,FB,VOD,INTC,PEP,ADBE,CSCO,NVDA,NFLX,TSLA,SBUX,QCOM,TMUS,BKNG,AMD,ADSK,EA,EBAY&apikey=\(apiKey)")!
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else{ return }
             do{

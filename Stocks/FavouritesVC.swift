@@ -4,7 +4,7 @@
 //
 //  Created by Максим on 05.03.2021.
 //
-
+//  Этот ViewController нужен для отображения списка избранных акций. (Если вдруг Вы не поняли, как добавлять акции в избранные, свайпните акцию на главном экране. Таким же свайпом на этом экране её можно удалить)
 import UIKit
 class FavouritesViewController: UITableViewController{
     
@@ -36,7 +36,6 @@ class FavouritesViewController: UITableViewController{
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
-
     }
     
     
@@ -74,7 +73,8 @@ class FavouritesViewController: UITableViewController{
         let stock = StocksShow[indexPath.row]
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
             var array = self.defaults.array(forKey: "favourite")
-            array = array!.filter { $0 as? String != stock.symbol }
+            array?.remove(at: indexPath.row)
+            //tableView.deleteRows(at: [indexPath], with: .automatic)
             self.defaults.set(array, forKey: "favourite")
             self.getData()
             if array?.count == 0{
@@ -84,7 +84,7 @@ class FavouritesViewController: UITableViewController{
             complete(true)
         }
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = true
+        //configuration.performsFirstActionWithFullSwipe = true
         return configuration
     }
     

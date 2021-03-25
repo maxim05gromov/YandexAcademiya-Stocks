@@ -4,7 +4,7 @@
 //
 //  Created by Максим on 05.03.2021.
 //
-
+//  AppDelegate не трогался
 import UIKit
 
 @main

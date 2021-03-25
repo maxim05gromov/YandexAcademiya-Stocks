@@ -4,7 +4,7 @@
 //
 //  Created by Максим on 07.03.2021.
 //
-
+//  Модель строки TableView из InfoVC
 import UIKit
 class infoCell: UITableViewCell{
     override func awakeFromNib() {

@@ -4,7 +4,7 @@
 //
 //  Created by Максим on 06.03.2021.
 //
-
+//  Модель строки TableView из StocksVC
 import UIKit
 class Cell: UITableViewCell{
     override func awakeFromNib() {
